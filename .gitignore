@@ -1,0 +1,27 @@
+# Environment / credentials
+etl/.env
+etl/.env.*
+!etl/.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+etl/wheels/
+etl/get-pip.py
+
+# Logs
+etl/logs/
+logs/
+
+# dbt artifacts
+abia_etl/target/
+abia_etl/dbt_packages/
+abia_etl/logs/
+revenue_pipeline/target/
+revenue_pipeline/dbt_packages/
+revenue_pipeline/logs/
+
+# Claude / IDE
+.claude/
+*.local.json

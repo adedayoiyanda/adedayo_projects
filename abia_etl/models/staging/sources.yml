@@ -1,0 +1,116 @@
+version: 2
+
+sources:
+  - name: abia_central
+    schema: public
+    description: Raw tables loaded from MariaDB via incremental ETL
+    tables:
+      - name: agent_transactions
+        description: Agent transaction records from the MariaDB source system
+        columns:
+          - name: idagent_transactions
+            description: Primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: payment_date
+            description: Date payment was confirmed
+          - name: status
+            description: Transaction status (Completed, Processing, Reversed, Failed, Cancelled)
+          - name: amount
+            description: Transaction amount in Naira
+
+      - name: rev_sub_newcode
+        description: Revenue sub-code reference table (MDA, revenue heads and items)
+        columns:
+          - name: id
+            description: Primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: rev_code
+            description: Unique revenue code (joins to agent_transactions.rev_code)
+            data_tests:
+              - unique
+          - name: mda
+            description: Ministry, Department or Agency
+          - name: revenue_item
+            description: Full description of the revenue item
+
+      - name: bus_ticketing_transaction
+        description: Bus ticketing transactions loaded from MariaDB abia_central
+        columns:
+          - name: id
+            description: Primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: trans_date
+            description: Date and time the transaction occurred
+          - name: amount
+            description: Fare amount in Naira
+          - name: route_name
+            description: Bus route for this transaction
+          - name: bus_id
+            description: Identifier of the bus
+          - name: issuer_name
+            description: Name of the ticket issuer
+
+      - name: concession_permit
+        description: Active concession permit rates for Vehicle and Trader plan codes
+        columns:
+          - name: id
+            description: Primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: product_code
+            description: Product code — joins to agent_transactions.revenue_item
+          - name: plan_code
+            description: Plan category (Vehicle or Trader)
+          - name: category
+            description: Sub-category within the plan (e.g. Transport, Market)
+          - name: amount
+            description: Current expected amount payable in Naira
+          - name: p_amount
+            description: Previous ticket amount payable in Naira
+
+      - name: enumeration
+        description: Taxpayer enumeration records captured by field agents
+        columns:
+          - name: id
+            description: Primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: created_by
+            description: Email of the agent who created the record — joins to merchant_user.email
+          - name: revenue_item
+            description: Revenue category (Transport or Market)
+          - name: category
+            description: Taxpayer category (Individual or Corporate/non-individual)
+          - name: create_time
+            description: Timestamp when the record was created (ETL watermark column)
+
+      - name: merchant_user
+        description: Agent/merchant user accounts — slowly changing dimension
+        columns:
+          - name: user_id
+            description: Primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: email
+            description: Agent email — joins to enumeration.created_by
+          - name: user_cat
+            description: User category (agent type)
+          - name: status
+            description: Account status
+          - name: bank
+            description: Agent bank name
+          - name: bank_account
+            description: Agent bank account number
+          - name: create_time
+            description: Record creation timestamp (ETL watermark column)
+          - name: update_time
+            description: Last update timestamp (used alongside create_time for SCD tracking)
