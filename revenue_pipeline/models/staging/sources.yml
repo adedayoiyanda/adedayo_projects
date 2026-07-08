@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: abia_central
+  - name: state_revenue
     schema: public
     description: Raw tables loaded from MariaDB via incremental ETL
     tables:
@@ -38,7 +38,7 @@ sources:
             description: Full description of the revenue item
 
       - name: bus_ticketing_transaction
-        description: Bus ticketing transactions loaded from MariaDB abia_central
+        description: Bus ticketing transactions loaded from MariaDB state_revenue
         columns:
           - name: id
             description: Primary key

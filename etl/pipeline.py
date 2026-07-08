@@ -17,7 +17,7 @@ import email_alert
 PYTHON_EXE   = r"C:\Users\Adedayo\AppData\Local\python-embed\python.exe"
 DBT_RUNNER   = r"C:\Users\Adedayo\AppData\Local\python-embed\dbt_runner.py"
 ETL_SCRIPT   = Path(__file__).parent / "incremental_load.py"
-DBT_PROJ_DIR = Path(__file__).parent.parent / "abia_etl"
+DBT_PROJ_DIR = Path(__file__).parent.parent / "revenue_pipeline"
 
 # ── Logging ────────────────────────────────────────────────────────────────
 LOG_DIR = Path(__file__).parent / "logs"

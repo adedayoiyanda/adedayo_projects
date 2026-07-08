@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ source('abia_central', 'enumeration') }}
+    select * from {{ source('state_revenue', 'enumeration') }}
 ),
 
 renamed as (
