@@ -98,3 +98,13 @@ revenue_pipeline/         # dbt project
    ```
    python etl/pipeline.py
    ```
+
+
+
+
+## Report Snapshot
+
+| Collections | Tickets |
+|---|---|
+| <img width="400" alt="collections" src="https://github.com/user-attachments/assets/7b2c70db-86b8-4705-9999-bceb6fa1ccd2" /> | <img width="400" alt="tickets" src="https://github.com/user-attachments/assets/e8f93140-a7fd-492f-b122-a828c5fb3c22" /> |
+
